@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping/analytics_service.dart';
 import 'package:shopping/feature/data/model/item.dart';
 import 'package:shopping/feature/presentation/bloc/shop_bloc.dart';
 
@@ -36,9 +37,12 @@ class _CatalogRowState extends State<CatalogRow> {
           const Expanded(child: SizedBox()),
           ElevatedButton(
               onPressed: () {
+                AnalyticsService().logAddItem().then((value) => debugPrint("item added to firebase"));
                 context.read<ShopBloc>().addItem(widget.item);
-                print(context.read<ShopBloc>().items.length);
-                print(context.read<ShopBloc>().price);
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(
+                      content: Text("${widget.item.name} added to Cart")));
               },
               child: const Text("Add"))
         ],

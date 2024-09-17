@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopping/analytics_service.dart';
 import 'package:shopping/feature/data/model/item.dart';
 import 'package:shopping/feature/presentation/bloc/shop_bloc.dart';
 import 'package:shopping/feature/presentation/widgets/cart/cart_list.dart';
@@ -33,7 +34,9 @@ class _CartPageState extends State<CartPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(child: CartList(items: widget.items, )),
-              ElevatedButton(onPressed: (){}, child: Text("price: ${widget.price}"))
+              ElevatedButton(onPressed: (){
+                AnalyticsService().logPurchase().then((value) => debugPrint("item purchase"));
+              }, child: Text("price: ${widget.price}"))
             ],
           ),
         ),

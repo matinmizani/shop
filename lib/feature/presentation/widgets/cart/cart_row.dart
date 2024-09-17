@@ -30,7 +30,7 @@ class _CartRowState extends State<CartRow> {
           ),
           Text("${widget.item.name}"),
           const Expanded(child: SizedBox()),
-          Text("price:${widget.item.price}\$"),
+          Text("${widget.item.price}\$"),
         ],
       ),
     );
